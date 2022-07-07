@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "test:eth",
+    "test": "yarn test:eth && yarn test:bsc && yarn test:matic",
     "test:eth": "hardhat test ./test/eth.test.js --config hardhat-eth.config.js",
     "test:bsc": "hardhat test ./test/bsc.test.js --config hardhat-bsc.config.js",
     "test:matic": "hardhat test ./test/matic.test.js --config hardhat-matic.config.js",
@@ -45,6 +45,7 @@
     "babel-plugin-module-resolver": "^4.1.0",
     "clean-webpack-plugin": "^4.0.0",
     "husky": "^8.0.1",
+    "istanbul": "^0.4.5",
     "lint-staged": "^13.0.3",
     "mocha": "^10.0.0",
     "prettier": "^2.7.1",
