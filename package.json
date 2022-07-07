@@ -9,7 +9,8 @@
     "test:bsc": "hardhat test ./test/bsc.test.js --config hardhat-bsc.config.js",
     "test:matic": "hardhat test ./test/matic.test.js --config hardhat-matic.config.js",
     "build": "webpack",
-    "eslint": "eslint ./src/**/*.js"
+    "eslint": "eslint ./src/**/*.js",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,9 @@
     "url": "https://github.com/jerrylib/ierc20-minter/issues"
   },
   "homepage": "https://github.com/jerrylib/ierc20-minter#readme",
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
   "dependencies": {
     "bignumber.js": "^9.0.2",
     "ethers": "^5.6.9",
@@ -30,7 +34,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",
-    "@babel/eslint-parser": "^7.18.2",
     "@babel/preset-env": "^7.18.6",
     "@babel/register": "^7.18.6",
     "@nomiclabs/hardhat-ethers": "^2.0.6",
@@ -38,18 +41,11 @@
     "@nomiclabs/hardhat-waffle": "^2.0.3",
     "@nomiclabs/hardhat-web3": "^2.0.0",
     "assert": "^2.0.0",
-    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.5",
     "babel-plugin-module-resolver": "^4.1.0",
     "clean-webpack-plugin": "^4.0.0",
-    "eslint": "^8.0.1",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-n": "^15.0.0",
-    "eslint-plugin-promise": "^6.0.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "mocha": "^10.0.0",
     "prettier": "^2.7.1",
     "terser-webpack-plugin": "^5.3.3",

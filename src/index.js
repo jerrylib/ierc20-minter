@@ -2,22 +2,22 @@ import {
   mintUsdtByAddressInEth,
   mintUsdtByAddressInBsc,
   mintUsdtByAddressInMatic,
-  mintUsdtByAddress
-} from '@utils/usdt'
+  mintUsdtByAddress,
+} from "@utils/usdt";
 
 import {
   mintUsdcByAddressInEth,
   mintUsdcByAddressInBsc,
   mintUsdcByAddressInMatic,
-  mintUsdcByAddress
-} from '@utils/usdc'
+  mintUsdcByAddress,
+} from "@utils/usdc";
 
 import {
   mintDaiByAddressInEth,
   mintDaiByAddressInBsc,
   mintDaiByAddressInMatic,
-  mintDaiByAddress
-} from '@utils/dai'
+  mintDaiByAddress,
+} from "@utils/dai";
 
 export {
   mintUsdtByAddressInEth,
@@ -31,5 +31,5 @@ export {
   mintDaiByAddressInEth,
   mintDaiByAddressInBsc,
   mintDaiByAddressInMatic,
-  mintDaiByAddress
-}
+  mintDaiByAddress,
+};
