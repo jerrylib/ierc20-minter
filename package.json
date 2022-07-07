@@ -9,7 +9,7 @@
     "test:bsc": "hardhat test ./test/bsc.test.js --config hardhat-bsc.config.js",
     "test:matic": "hardhat test ./test/matic.test.js --config hardhat-matic.config.js",
     "build": "webpack",
-    "eslint": "eslint ./src/**/*.js --fix"
+    "eslint": "eslint ./src/**/*.js"
   },
   "repository": {
     "type": "git",
