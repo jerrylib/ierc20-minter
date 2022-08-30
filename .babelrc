@@ -13,10 +13,11 @@
     [
       "module-resolver",
       {
-        "root": ["./src"],
+        "root": [
+          "./src"
+        ],
         "alias": {
-          "@utils": "./src/utils",
-          "@constants": "./src/constants"
+          "@": "./src"
         }
       }
     ]
