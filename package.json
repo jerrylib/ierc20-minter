@@ -9,7 +9,7 @@
     "test:bsc": "hardhat test ./test/bsc.test.js --config hardhat-bsc.config.js",
     "test:matic": "hardhat test ./test/matic.test.js --config hardhat-matic.config.js",
     "build": "webpack",
-    "lint": "prettier --write .",
+    "lint": "prettier -c -w \"{src,test}/**/*.js\"",
     "prepare": "husky install"
   },
   "repository": {
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/jerrylib/ierc20-minter#readme",
   "lint-staged": {
-    "**/*": "prettier --write ."
+    "**/*.{js,json}": "npm run lint"
   },
   "dependencies": {
     "bignumber.js": "^9.0.2",
