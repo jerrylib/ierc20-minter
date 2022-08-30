@@ -1,5 +1,6 @@
-# Ignore artifacts:
 dist
 node_modules
 cache
 artifacts
+package.json
+README.md.babelrc
