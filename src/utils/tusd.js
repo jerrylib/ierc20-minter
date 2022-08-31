@@ -8,8 +8,7 @@ import { ETH, BSC, MATIC } from '@/constants/Chain'
 import { USDT_ETH, USDT_BSC, USDT_MATIC, TUSD_ETH, TUSD_BSC } from '@/constants/Address'
 import { impersonates, sendEthers } from './hardhat'
 
-const IERC20_ETH = hre.artifacts.require('IERC20_ETH')
-const IERC20_BSC = hre.artifacts.require('IERC20_BSC')
+const IERC20_TUSD = hre.artifacts.require('IERC20_TUSD')
 
 export const mintTusdByAddressInEth = async (reciver, amount = new BigNumber(10).pow(6)) => {
   if (isEmpty(reciver)) return 0

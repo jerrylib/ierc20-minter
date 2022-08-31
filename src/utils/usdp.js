@@ -5,15 +5,15 @@ import { web3 } from 'hardhat'
 
 // === Constants === //
 import { ETH, BSC, MATIC } from '@/constants/Chain'
-import { USDT_ETH, USDT_BSC, USDT_MATIC, TUSD_BSC } from '@/constants/Address'
+import { USDP_ETH, USDP_BSC } from '@/constants/Address'
 import { impersonates, sendEthers } from './hardhat'
 
-const IERC20_ETH = hre.artifacts.require('IERC20_ETH')
+const IERC20_USDP = hre.artifacts.require('IERC20_USDP')
 const IERC20_BSC = hre.artifacts.require('IERC20_BSC')
 
 export const mintUsdpByAddressInEth = async (reciver, amount = new BigNumber(10).pow(6)) => {
   if (isEmpty(reciver)) return 0
-  const TOKEN = await IERC20_TUSD.at(TUSD_BSC)
+  const TOKEN = await IERC20_USDP.at(USDP_ETH)
   const tokenOwner = await TOKEN.getOwner()
   const tokenName = await TOKEN.name()
   const nextAmount = new BigNumber(amount)
@@ -37,7 +37,7 @@ export const mintUsdpByAddressInEth = async (reciver, amount = new BigNumber(10)
 
 export const mintUsdpByAddressInBsc = async (reciver, amount = new BigNumber(10).pow(18)) => {
   if (isEmpty(reciver)) return 0
-  const TOKEN = await IERC20_TUSD.at(TUSD_BSC)
+  const TOKEN = await IERC20_BSC.at(USDP_BSC)
   const tokenOwner = await TOKEN.getOwner()
   const tokenName = await TOKEN.name()
   const nextAmount = new BigNumber(amount)

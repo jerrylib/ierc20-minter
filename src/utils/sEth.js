@@ -7,7 +7,7 @@ import { ETH } from '@/constants/Chain'
 import { sendEthers } from './hardhat'
 
 export const mintSEthByAddressInEth = async (reciver, amount = new BigNumber(10).pow(18)) => {
-  if (isEmpty(to)) return new BigNumber(0)
+  if (isEmpty(reciver)) return new BigNumber(0)
 
   return amount
 }

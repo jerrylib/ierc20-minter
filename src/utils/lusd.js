@@ -1,14 +1,15 @@
 // === Utils === //
 import isEmpty from 'lodash/isEmpty'
 import BigNumber from 'bignumber.js'
+import { mintEthByAddressInEth } from './eth'
+import { mintBusdByAddressInBsc } from './busd'
 
 // === Constants === //
 import { ETH, BSC, MATIC } from '@/constants/Chain'
 import { LUSD_ETH, LUSD_BSC } from '@/constants/Address'
 import { impersonates, sendEthers } from './hardhat'
 
-const IERC20_ETH = hre.artifacts.require('IERC20_ETH')
-const IERC20_BSC = hre.artifacts.require('IERC20_BSC')
+const IERC20_LUSD = hre.artifacts.require('IERC20_LUSD')
 
 export const mintLusdByAddressInEth = async (reciver, amount = new BigNumber(10).pow(6)) => {
   if (isEmpty(reciver)) return 0
@@ -19,7 +20,7 @@ export const mintLusdByAddressInEth = async (reciver, amount = new BigNumber(10)
   console.log(`[Mint]开始为账户充值 ${tokenName}，充值数量：%s`, nextAmount.toFormat())
 
   // 给钱包账户发送1ETH，确保从里面提钱的交易正常。
-  await sendEthers(tokenOwner)
+  await mintEthByAddressInEth(tokenOwner)
 
   const callback = await impersonates([tokenOwner])
   await TOKEN.mint(reciver, nextAmount, {
@@ -34,14 +35,14 @@ export const mintLusdByAddressInEth = async (reciver, amount = new BigNumber(10)
 
 export const mintLusdByAddressInBsc = async (reciver, amount = new BigNumber(10).pow(18)) => {
   if (isEmpty(reciver)) return 0
-  const TOKEN = await IERC20_TUSD.at(LUSD_BSC)
+  const TOKEN = await IERC20_LUSD.at(LUSD_BSC)
   const tokenOwner = await TOKEN.getOwner()
   const tokenName = await TOKEN.name()
   const nextAmount = new BigNumber(amount)
   console.log(`[Mint]开始为账户充值 ${tokenName}，充值数量：%s`, nextAmount.toFormat())
 
   // 给钱包账户发送1ETH，确保从里面提钱的交易正常。
-  await sendEthers(tokenOwner)
+  await mintBusdByAddressInBsc(tokenOwner)
   const callback = await impersonates([tokenOwner])
 
   await TOKEN.mint(nextAmount, {

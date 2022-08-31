@@ -21,9 +21,27 @@ import { ethers } from 'hardhat'
 // === Utils === //
 import assert from 'assert'
 import BigNumber from 'bignumber.js'
+const { balance } = require('@openzeppelin/test-helpers')
 
 // === Constants === //
-import { USDT_ETH, USDC_ETH, DAI_ETH, LUSD_ETH, GUSD_ETH } from '@/constants/Address'
+import {
+  USDT_ETH,
+  USDC_ETH,
+  DAI_ETH,
+  LUSD_ETH,
+  GUSD_ETH,
+  RETH2_ETH,
+  ROCKET_POOL_ETH_ETH,
+  SETH_ETH,
+  SETH2_ETH,
+  STETH_ETH,
+  SUSD_ETH,
+  TUSD_ETH,
+  USDP_ETH,
+  WETH_ETH,
+  WST_ETH_ETH
+} from '@/constants/Address'
+import { ETH_ETH } from '../src/constants/Address'
 
 const IERC20 = hre.artifacts.require('@interface/IERC20.sol')
 
@@ -150,10 +168,17 @@ describe('minter test for ETH', function () {
   })
 
   it('mint wstEth in eth', async function () {
-    const contract = await IERC20.at(WSTETH_ETH)
+    const contract = await IERC20.at(WST_ETH_ETH)
     const topUpAmount = new BigNumber(10).pow(18 + 9)
     const balanceBefore = await contract.balanceOf(farmer1)
     await mintWstEthByAddressInEth(farmer1, topUpAmount)
     assert.equal(new BigNumber((await contract.balanceOf(farmer1)).sub(balanceBefore)).toString(), topUpAmount.toString())
+  })
+
+  it('mint ETH in eth', async function () {
+    const topUpAmount = new BigNumber(10).pow(18 + 9)
+    const balanceBefore = await balance.current(farmer1)
+    await mintEthByAddress(farmer1, topUpAmount)
+    assert.equal(new BigNumber((await balance.current(farmer1)).sub(balanceBefore)).toString(), topUpAmount.toString())
   })
 })
