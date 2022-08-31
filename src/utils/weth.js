@@ -19,7 +19,7 @@ export const mintWethByAddressInEth = async (to, amount = new BigNumber(10).pow(
 
   const nextAmount = new BigNumber(amount)
 
-  await mintEthByAddressInEth(nextAmount, account0)
+  await mintEthByAddressInEth(account0, nextAmount)
 
   console.log(`[Mint]Start recharge ${tokenName}，recharge amount：%s`, nextAmount.toFormat())
 
@@ -46,8 +46,8 @@ const functionMap = {
   [ETH]: mintWethByAddressInEth
 }
 
-export const mintWethByAddress = async (amount, reciver, chainId) => {
+export const mintWethByAddress = async (reciver, amount, chainId) => {
   const caller = functionMap[chainId]
   if (isEmpty(caller)) return new Error('chainId not support, chainId:', chainId)
-  return caller(amount, reciver)
+  return caller(reciver, amount)
 }

@@ -41,7 +41,6 @@ import {
   WETH_ETH,
   WST_ETH_ETH
 } from '@/constants/Address'
-import { ETH_ETH } from '../src/constants/Address'
 
 const IERC20 = hre.artifacts.require('@interface/IERC20.sol')
 

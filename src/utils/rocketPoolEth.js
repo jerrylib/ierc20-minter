@@ -6,7 +6,7 @@ import { mintEthByAddressInEth } from './eth'
 // === Constants === //
 import { ETH } from '@/constants/Chain'
 import { ROCKET_POOL_ETH_ETH } from '@/constants/Address'
-import { sendEthers } from './hardhat'
+import { impersonates } from './hardhat'
 
 const IERC20_ROCKET_POOL_ETH = hre.artifacts.require('IERC20_ROCKET_POOL_ETH')
 
@@ -21,8 +21,8 @@ export const mintRocketPoolEthByAddressInEth = async (to, amount = new BigNumber
 
   const nextAmount = new BigNumber(amount)
   const rethAmount = nextAmount.multipliedBy(rethValue).div(decimal).multipliedBy(101).div(100)
-  await mintEthByAddressInEth(decimal, tokenOwner)
-  await mintEthByAddressInEth(rethAmount, tokenOwner)
+  await mintEthByAddressInEth(tokenOwner, decimal)
+  await mintEthByAddressInEth(tokenOwner, rethAmount)
   console.log(`[Mint]Start recharge ${tokenName}，recharge amount：%s`, nextAmount.toFormat())
 
   impersonates([tokenOwner])
@@ -48,8 +48,8 @@ const functionMap = {
   [ETH]: mintRocketPoolEthByAddressInEth
 }
 
-export const mintRocketPoolEthByAddress = async (amount, reciver, chainId) => {
+export const mintRocketPoolEthByAddress = async (reciver, amount, chainId) => {
   const caller = functionMap[chainId]
   if (isEmpty(caller)) return new Error('chainId not support, chainId:', chainId)
-  return caller(amount, reciver)
+  return caller(reciver, amount)
 }

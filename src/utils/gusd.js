@@ -24,8 +24,8 @@ const functionMap = {
   [ETH]: mintGusdByAddressInEth
 }
 
-export const mintGusdByAddress = async (amount, reciver, chainId) => {
+export const mintGusdByAddress = async (reciver, amount, chainId) => {
   const caller = functionMap[chainId]
   if (isEmpty(caller)) return new Error('chainId not support, chainId:', chainId)
-  return caller(amount, reciver)
+  return caller(reciver, amount)
 }

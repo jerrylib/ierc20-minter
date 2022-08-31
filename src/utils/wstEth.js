@@ -5,11 +5,10 @@ import { mintStEthByAddressInEth } from './stEth'
 
 // === Constants === //
 import { ETH } from '@/constants/Chain'
-import { WST_ETH_ETH } from '@/constants/Address'
-import { sendEthers } from './hardhat'
-import { STETH_ETH } from '../constants/Address'
+import { WST_ETH_ETH, STETH_ETH } from '@/constants/Address'
 
 const IERC20_WSTETH = hre.artifacts.require('IERC20_WSTETH')
+const IERC20_STETH = hre.artifacts.require('IERC20_STETH')
 
 export const mintWstEthByAddressInEth = async (to, amount = new BigNumber(10).pow(18)) => {
   if (isEmpty(to)) return 0
@@ -21,7 +20,7 @@ export const mintWstEthByAddressInEth = async (to, amount = new BigNumber(10).po
   const nextAmount = new BigNumber(amount)
   const stEthAmount = nextAmount.multipliedBy(stEthPerToken).div(1e18)
 
-  await mintStEthByAddressInEth(stEthAmount, account0)
+  await mintStEthByAddressInEth(account0, stEthAmount)
 
   console.log(`[Mint]Start recharge ${tokenName}，recharge amount：%s`, nextAmount.toFormat())
 
@@ -52,8 +51,8 @@ const functionMap = {
   [ETH]: mintWstEthByAddressInEth
 }
 
-export const mintWstEthByAddress = async (amount, reciver, chainId) => {
+export const mintWstEthByAddress = async (reciver, amount, chainId) => {
   const caller = functionMap[chainId]
   if (isEmpty(caller)) return new Error('chainId not support, chainId:', chainId)
-  return caller(amount, reciver)
+  return caller(reciver, amount)
 }

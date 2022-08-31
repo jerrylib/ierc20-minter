@@ -2,12 +2,22 @@
 import isEmpty from 'lodash/isEmpty'
 import BigNumber from 'bignumber.js'
 import { mintEthByAddressInEth } from './eth'
+import { impersonates } from './hardhat'
 
 // === Constants === //
 import { ETH } from '@/constants/Chain'
 import { STETH_ETH } from '../constants/Address'
 
 const IERC20_STETH = hre.artifacts.require('IERC20_STETH')
+
+const removeSTETHStakeLimit = async () => {
+  const TOKEN = await IERC20_STETH.at(STETH_ETH)
+  const masterMinter = '0x2e59A20f205bB85a89C53f1936454680651E618e'
+  await mintEthByAddressInEth(masterMinter)
+  const callback = await impersonates([masterMinter])
+  await TOKEN.removeStakingLimit({ from: masterMinter })
+  await callback()
+}
 
 export const mintStEthByAddressInEth = async (to, amount = new BigNumber(10).pow(18)) => {
   if (isEmpty(to)) return new BigNumber(0)
@@ -19,7 +29,7 @@ export const mintStEthByAddressInEth = async (to, amount = new BigNumber(10).pow
   // mint more
   const nextAmount = new BigNumber(amount).multipliedBy(101).div(100)
 
-  await mintEthByAddressInEth(nextAmount, account0)
+  await mintEthByAddressInEth(account0, nextAmount)
 
   console.log(`[Mint]Start recharge ${tokenName}，recharge amount：%s`, nextAmount.toFormat())
 
@@ -47,8 +57,8 @@ const functionMap = {
   [ETH]: mintStEthByAddressInEth
 }
 
-export const mintStEthByAddress = async (amount, reciver, chainId) => {
+export const mintStEthByAddress = async (reciver, amount, chainId) => {
   const caller = functionMap[chainId]
   if (isEmpty(caller)) return new Error('chainId not support, chainId:', chainId)
-  return caller(amount, reciver)
+  return caller(reciver, amount)
 }

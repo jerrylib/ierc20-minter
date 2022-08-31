@@ -65,8 +65,8 @@ const functionMap = {
   // [MATIC]: mintUsdtByAddressInMatic,
 }
 
-export const mintLusdByAddress = async (amount, reciver, chainId) => {
+export const mintLusdByAddress = async (reciver, amount, chainId) => {
   const caller = functionMap[chainId]
   if (isEmpty(caller)) return new Error('chainId not support, chainId:', chainId)
-  return caller(amount, reciver)
+  return caller(reciver, amount)
 }

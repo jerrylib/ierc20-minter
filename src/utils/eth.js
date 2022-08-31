@@ -7,7 +7,7 @@ const { balance } = require('@openzeppelin/test-helpers')
 import { ETH } from '@/constants/Chain'
 import { sendEthers } from './hardhat'
 
-export const mintEthByAddressInEth = async (reciver, amount = new BigNumber(10).pow(18)) => {
+export const mintEthByAddressInEth = async (reciver, amount = new BigNumber(10).pow(18 + 1)) => {
   if (isEmpty(reciver)) return new BigNumber(0)
   const tokenName = 'ETH'
   const nextAmount = new BigNumber(amount)
@@ -31,8 +31,8 @@ const functionMap = {
   [ETH]: mintEthByAddressInEth
 }
 
-export const mintEthByAddress = async (amount, reciver, chainId) => {
+export const mintEthByAddress = async (reciver, amount, chainId) => {
   const caller = functionMap[chainId]
   if (isEmpty(caller)) return new Error('chainId not support, chainId:', chainId)
-  return caller(amount, reciver)
+  return caller(reciver, amount)
 }
