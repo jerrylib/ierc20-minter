@@ -40,6 +40,7 @@
     "@nomiclabs/hardhat-truffle5": "^2.0.6",
     "@nomiclabs/hardhat-waffle": "^2.0.3",
     "@nomiclabs/hardhat-web3": "^2.0.0",
+    "@openzeppelin/test-helpers": "^0.5.15",
     "assert": "^2.0.0",
     "babel-loader": "^8.2.5",
     "babel-plugin-module-resolver": "^4.1.0",
